@@ -33,16 +33,19 @@ def add_order(request):
     if request.method == 'POST':
         table_number = request.POST['table_number']
         items = request.POST['items']
-        prices = [int(i) for i in re.findall(r'\b\d+\b', items)]
-        total_price = sum(prices)
-        status = 'в ожидании'
-        Order.objects.create(
-            table_number=table_number,
-            items=items,
-            total_price=total_price,
-            status=status
-        )
-        return HttpResponseRedirect('/main/')
+        if table_number and items:
+            prices = [int(i) for i in re.findall(r'\b\d+\b', items)]
+            total_price = sum(prices)
+            status = 'в ожидании'
+            Order.objects.create(
+                table_number=table_number,
+                items=items,
+                total_price=total_price,
+                status=status
+            )
+            return HttpResponseRedirect('/main/')
+        else:
+            return HttpResponseRedirect('/add/')
     else:
         context = {
             'message': 'Добавить заказ',
