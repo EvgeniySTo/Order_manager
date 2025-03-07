@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Менеджер заказов</title>
+      <style>
+          .menu {
+	width: 100%;
+	display: table;
+}
+.menu ul {
+	display: table-row;
+}
+.menu li {
+	display: table-cell;
+	background: #2767A0;
+}
+.menu ul li:hover, .menu a:hover {
+	background: #666;
+}
+.menu li a {
+	display: block;
+	padding: 8px 15px;
+	color: #fff;
+	text-align: center;
+}
+input.text {
+    width:  800px;
+    height: 30px;
+    padding: 5px 10px 5px 10px;
+    border:1px solid #999;
+    font-size:14px;
+    font-family: Tahoma;
+}
+        .center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 50vh;
+}
+      </style>
+  </head>
+  <body>
+  <script>
+      function addTextToInput(anElement) {
+  var text = document.getElementById('menu').value;
+  if (text != "")
+    text += ", ";
+  text += anElement.innerText;
+  document.getElementById('menu').value = text;
+}
+  </script>
+    <h2 align="center">Менеджер заказов</h2>
+    <h3 align="center">{{ message }}</h3>
+  <div class="menu">
+	<ul>
+		<li><a href="/main">Главная</a></li>
+		<li><a href="/add">Сформировать заказ</a></li>
+        <li><a href="#">Найти заказ</a></li>
+	</ul>
+</div>
+  {% block content %}
+  {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% block content %}
+<br>
+<form action="/main/" method="post">
+    {% csrf_token %}
+    <input type="text" name="param" placeholder="искать по номеру стола или статусу">
+    <input type="submit" value="поиск">
+</form>
+<div class="center-screen">
+          <table>
+          <thead>
+          <tr>
+              <th scope="col">ID</th>
+              <th scope="col">НОМЕР СТОЛА</th>
+              <th scope="col">ЗАКАЗ</th>
+              <th scope="col">СУММА</th>
+              <th scope="col">СТАТУС</th>
+              <th scope="col">УСТАНОВИТЬ СТАТУС</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for order in orders %}
+             <tr>
+                 <th>{{ order.id }}</th>
+                 <th>{{ order.table_number }}</th>
+                 <th>{{ order.items }}</th>
+                 <th>{{ order.total_price }}</th>
+                 <th>{{ order.status }}</th>
+                 {% if order.status != "оплачено" %}
+                 <th>
+                     <form action="/change/{{ order.id }}/" method="post">
+                         {% csrf_token %}
+                         <select name="current_status">
+                             <option value="в ожидании">в ожидании</option>
+                             <option value="готов">готов</option>
+                             <option value="оплачено">оплачено</option>
+                         </select>
+                        <input type="submit" value="установить">
+                     </form>
+                 </th>
+                 {% endif %}
+                 <th>
+                     <form action="/delete/{{ order.id }}/" method="post">
+                         {% csrf_token %}
+                         <input type="submit" value="удалить заказ">
+                     </form>
+                 </th>
+             </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+</div>
+{% endblock %}

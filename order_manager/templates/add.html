@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="center-screen">
+<form action="/add/" method="post">
+    {% csrf_token %}
+    <input id="menu" name="items" type="text" class="text" placeholder="ЗАКАЗ" readonly/>
+    <br><br>
+    {% for item in menu.items %}
+    <button type="button" onclick="addTextToInput(this)">{{ item.0 }} | {{ item.1 }}</button>
+    {% endfor %}
+    <br><br>
+    <input type="number" name="table_number" placeholder="НОМЕР СТОЛА">
+    <br><br>
+    <input type="reset">
+    <br><br>
+    <input type="submit" value="СФОРМИРОВАТЬ ЗАКАЗ">
+</form>
+</div>
+
+{% endblock %}
