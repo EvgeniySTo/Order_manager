@@ -59,7 +59,8 @@ input.text {
 	<ul>
 		<li><a href="/main">Главная</a></li>
 		<li><a href="/add">Сформировать заказ</a></li>
-        <li><a href="/finish">Закончить смену</a></li>
+      {% block menu %}
+      {% endblock %}
 	</ul>
 </div>
   {% block content %}
