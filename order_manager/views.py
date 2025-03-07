@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from .models import Order, Revenue
+from .models import Order
 from .const import MENU
 import re
 
@@ -13,7 +13,9 @@ def index(request):
 
 def order_list(request):
     orders = Order.objects.all()
-    context = {'message': 'Текущие заказы', 'orders': orders}
+    prices = [int(order.total_price) for order in orders if order.status == 'оплачено']
+    rev = sum(prices)
+    context = {'message': 'Текущие заказы', 'orders': orders, 'rev': rev}
     if request.method == 'POST':
         param = request.POST['param']
         try:
@@ -67,3 +69,7 @@ def delete_order(request, order_id):
     order.delete()
     return HttpResponseRedirect('/main/')
 
+
+def finish_working_day(request):
+    Order.objects.all().delete()
+    return HttpResponseRedirect('/main/')

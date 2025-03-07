@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from order_manager.views import index, order_list, add_order, change_status, delete_order
+from order_manager.views import index, order_list, add_order, change_status, delete_order, finish_working_day
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +25,5 @@ urlpatterns = [
     path('add/', add_order),
     path('change/<int:order_id>/', change_status),
     path('delete/<int:order_id>/', delete_order),
+    path('finish/', finish_working_day),
 ]

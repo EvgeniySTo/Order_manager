@@ -6,6 +6,9 @@
     <input type="text" name="param" placeholder="искать по номеру стола или статусу">
     <input type="submit" value="поиск">
 </form>
+<h4>
+    Общая выручка {{ rev }} руб.
+</h4>
 <div class="center-screen">
           <table>
           <thead>
@@ -38,13 +41,13 @@
                         <input type="submit" value="установить">
                      </form>
                  </th>
-                 {% endif %}
                  <th>
                      <form action="/delete/{{ order.id }}/" method="post">
                          {% csrf_token %}
                          <input type="submit" value="удалить заказ">
                      </form>
                  </th>
+                 {% endif %}
              </tr>
           {% endfor %}
           </tbody>

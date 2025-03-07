@@ -13,7 +13,3 @@ class Order(models.Model):
     items = models.CharField(max_length=500)
     total_price = models.PositiveIntegerField()
     status = models.CharField(max_length=15, choices=STATUSES)
-
-
-class Revenue(models.Model):
-    total_summ = models.PositiveIntegerField()
