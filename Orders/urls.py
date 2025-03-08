@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from order_manager.views import index, order_list, add_order, change_status, delete_order, finish_working_day
 
 urlpatterns = [
@@ -26,4 +26,5 @@ urlpatterns = [
     path('change/<int:order_id>/', change_status),
     path('delete/<int:order_id>/', delete_order),
     path('finish/', finish_working_day),
+    path('api/', include('api.urls')),
 ]
