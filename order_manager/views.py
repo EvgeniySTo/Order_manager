@@ -5,6 +5,7 @@ import re
 
 
 def index(request):
+    """Контроллер отображает главную страницу сайта"""
     context = {
         'message': 'Выберите раздел меню'
     }
@@ -12,6 +13,8 @@ def index(request):
 
 
 def order_list(request):
+    """Контроллер для отображения страницы со списком заказов. Так же имеется
+    возможность фильтрации заказов по номеру стола или статусу"""
     orders = Order.objects.all()
     prices = [int(order.total_price) for order in orders if order.status == 'оплачено']
     rev = sum(prices)
@@ -32,6 +35,9 @@ def order_list(request):
 
 
 def add_order(request):
+    """Контроллер для отображения страницы с формой для формирования заказа.
+    При отправке формы, добавляет новый заказ в БД и перенаправляет пользователя
+    на страницу со списком всех заказов"""
     if request.method == 'POST':
         table_number = request.POST['table_number']
         items = request.POST['items']
@@ -57,6 +63,8 @@ def add_order(request):
 
 
 def change_status(request, order_id):
+    """Контроллер осуществляет функционал изменения статуса заказов,
+    отображенных в списке на главной странице"""
     current_status = request.POST['current_status']
     order = Order.objects.get(id=order_id)
     order.status = current_status
@@ -65,11 +73,15 @@ def change_status(request, order_id):
 
 
 def delete_order(request, order_id):
+    """Контроллер осуществляет функционал удаления заказов,
+    отображенных в списке на главной странице"""
     order = Order.objects.get(id=order_id)
     order.delete()
     return HttpResponseRedirect('/main/')
 
 
 def finish_working_day(request):
+    """Контроллер осуществляет функционал удаления всех записей в БД при
+    нажатии на кнопку интерфейса"""
     Order.objects.all().delete()
     return HttpResponseRedirect('/main/')
